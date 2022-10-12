@@ -1,20 +1,14 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Data, getUrl } from '../interface'
 import axios from 'axios'
-import useSwr, { Fetcher } from 'swr'
+
+import Title from '../components/Title'
 
 const URL = getUrl()
-const fetcher: Fetcher<Data> = (url: string) => axios.get(url).then(r => r.data)
-
-
-const Home: NextPage = () => {
-  const { data } = useSwr(`/api/me`, fetcher)
-
-  if (!data) <h1>Loading</h1>;
-
+const Home = ({ api }: Data) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -24,13 +18,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome {data?.name}
-        </h1>
+        <Title />
+
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
+          Get started by editing {api.name}
         </p>
 
         <div className={styles.grid}>
@@ -78,6 +70,14 @@ const Home: NextPage = () => {
       </footer>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await axios.get(`${URL}/api/mee`)
+  const api: Data = await response.data
+  return {
+    props: { api }
+  }
 }
 
 export default Home

@@ -7,5 +7,7 @@ export const getUrl = () => {
 };
 
 export interface Data {
-  name: string;
+  api: {
+    name: string;
+  };
 }
