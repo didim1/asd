@@ -15,8 +15,6 @@ const Home: NextPage = () => {
 
   if (!data) <h1>Loading</h1>;
 
-  console.log(URL)
-
   return (
     <div className={styles.container}>
       <Head>
