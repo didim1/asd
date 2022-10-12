@@ -3,7 +3,7 @@ export const getUrl = () => {
     return process.env.NEXT_PUBLIC_SITE;
   }
 
-  return process.env.VERCEL_URL;
+  return `https://${process.env.VERCEL_URL}`;
 };
 
 export interface Data {
