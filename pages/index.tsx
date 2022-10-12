@@ -2,8 +2,21 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { Data, getUrl } from '../interface'
+import axios from 'axios'
+import useSwr, { Fetcher } from 'swr'
+
+const URL = getUrl()
+const fetcher: Fetcher<Data> = (url: string) => axios.get(url).then(r => r.data)
+
 
 const Home: NextPage = () => {
+  const { data } = useSwr(`${URL}/api/me`, fetcher)
+
+  if (!data) <h1>Loading</h1>;
+
+  console.log(URL)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +27,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome {data?.name}
         </h1>
 
         <p className={styles.description}>
