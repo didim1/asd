@@ -11,7 +11,7 @@ const fetcher: Fetcher<Data> = (url: string) => axios.get(url).then(r => r.data)
 
 
 const Home: NextPage = () => {
-  const { data } = useSwr(`${URL}/api/me`, fetcher)
+  const { data } = useSwr(`/api/me`, fetcher)
 
   if (!data) <h1>Loading</h1>;
 
