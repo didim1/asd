@@ -2,11 +2,12 @@ import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { Data, getUrl } from '../interface'
+import { Data, getHttp, getUrl } from '../interface'
 import axios from 'axios'
 import Title from '../components/Title'
 
 const URL = getUrl()
+const HTTP = getHttp()
 const Home = ({ api }: Data) => {
   return (
     <div className={styles.container}>
@@ -72,7 +73,7 @@ const Home = ({ api }: Data) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await axios.get(`https://${URL}/api/mee`)
+  const response = await axios.get(`${HTTP}${URL}/api/mee`)
   const api: Data = await response.data
   return {
     props: { api }
