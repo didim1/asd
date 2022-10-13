@@ -4,7 +4,6 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Data, getUrl } from '../interface'
 import axios from 'axios'
-
 import Title from '../components/Title'
 
 const URL = getUrl()
@@ -73,7 +72,7 @@ const Home = ({ api }: Data) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await axios.get(`${URL}/api/mee`)
+  const response = await axios.get(`https://${URL}/api/mee`)
   const api: Data = await response.data
   return {
     props: { api }
