@@ -10,7 +10,7 @@ const fetcher: Fetcher<Data['api']> = (url: string) => axios.get(url).then(r => 
 const Title = () => {
     const { data } = useSWR(`/api/me`, fetcher)
 
-    if (!data) <h1>Loading</h1>;
+    if (!data) return <h1>Loading</h1>;
     return (
         <h1 className={styles.title}>
             Welcome {data?.name}
